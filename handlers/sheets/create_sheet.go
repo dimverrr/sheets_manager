@@ -11,7 +11,7 @@ import (
 func CreateSheet() {
 	srv := config.ApiConnect()
 	sheet := sheets.SheetProperties{
-		Title: "My New Sheet",
+		Title: "Sheet2",
 	}
 
 	batchUpdate := sheets.BatchUpdateSpreadsheetRequest{
