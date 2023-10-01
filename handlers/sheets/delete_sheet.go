@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sheets_manager/models"
 	"sheets_manager/setup/config"
 
 	"google.golang.org/api/sheets/v4"
@@ -29,7 +28,7 @@ func DeleteSheet() {
 						}},
 					}
 		
-					_, err := srv.Spreadsheets.BatchUpdate(models.SpreadsheetId, &batchUpdate).Do()
+					_, err := srv.Spreadsheets.BatchUpdate("1anvMrlKNxPsu5QXwgd3BeVg4QNs8DZbwXWIlg18Qf7g", &batchUpdate).Do()
 					if err != nil {
 						log.Fatal("Impossible to delete sheet")
 					}
