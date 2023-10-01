@@ -1,40 +1,69 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package sheethandlers
 
 import (
 	"fmt"
+	"log"
+	"os"
+	spreadsheethandlers "sheets_manager/cmd/handlers/spreadsheets"
+	"sheets_manager/setup/config"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
 
-// renameSheetCmd represents the renameSheet command
 var renameSheetCmd = &cobra.Command{
-	Use:   "renameSheet",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "rename",
+	Short: "Rename your sheet fromspreadsheet.",
+	Long: `Rename your sheet fromspreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("renameSheet called")
+		RenameSheet()
 	},
 }
 
 func init() {
 	SheetsCmd.AddCommand(renameSheetCmd)
 
-	// Here you will define your flags and configuration settings.
+	renameSheetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	renameSheetCmd.Flags().StringVarP(&newName, "newName", "w", "", "new name for sheet")
+	renameSheetCmd.MarkFlagRequired("name")
+	renameSheetCmd.MarkFlagRequired("newName")
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// renameSheetCmd.PersistentFlags().String("foo", "", "A help for foo")
+func RenameSheet() {
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// renameSheetCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	srv := config.ApiConnect()
+	id := spreadsheethandlers.CheckId()
+	sheetsArr := GetSheets()
+
+	found := false
+	for _, sheet := range sheetsArr{
+		if sheet.Properties.Title == sheetName{
+			found = true
+			batchUpdate := sheets.BatchUpdateSpreadsheetRequest{
+				Requests: []*sheets.Request{{
+					UpdateSheetProperties: &sheets.UpdateSheetPropertiesRequest{
+						Properties: &sheets.SheetProperties{
+							Title: newName,
+							SheetId: sheet.Properties.SheetId,
+						},
+						Fields: "title",
+					},
+				}},
+			}
+
+			_, err := srv.Spreadsheets.BatchUpdate(id, &batchUpdate).Do()
+			if err != nil {
+				log.Fatal("Impossible to rename sheet")
+			}
+
+			fmt.Println("Sheet was renamed successfully")
+			break
+		}
+	}
+
+	if !found {
+		fmt.Println("There is no sheet with such name")
+		os.Exit(1)
+	}
+
 }

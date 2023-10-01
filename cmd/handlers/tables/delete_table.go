@@ -1,40 +1,60 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package tables
 
 import (
 	"fmt"
+	"log"
+	"os"
+	sheethandlers "sheets_manager/cmd/handlers/sheets"
+	spreadsheethandlers "sheets_manager/cmd/handlers/spreadsheets"
+	"sheets_manager/setup/config"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
 
-// tableDeleteCmd represents the tableDelete command
 var tableDeleteCmd = &cobra.Command{
-	Use:   "tableDelete",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "delete",
+	Short: "Delete table from your sheet.",
+	Long: `Delete table from your sheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("tableDelete called")
+		DeleteTable()
 	},
 }
 
 func init() {
 	TablesCmd.AddCommand(tableDeleteCmd)
 
-	// Here you will define your flags and configuration settings.
+	tableDeleteCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	tableCreateCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for deleting values`Example: A1 `")
+	tableCreateCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for deleting values`Example: E `")
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// tableDeleteCmd.PersistentFlags().String("foo", "", "A help for foo")
+	tableDeleteCmd.MarkFlagRequired("name")
+	tableCreateCmd.MarkFlagRequired("column1")
+	tableCreateCmd.MarkFlagRequired("column2")
+}
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// tableDeleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+func DeleteTable() {
+	srv := config.ApiConnect()
+	id := spreadsheethandlers.CheckId()
+	sheetsArr := sheethandlers.GetSheets()
+
+	found := false
+	for _, sheet := range sheetsArr {
+		if sheet.Properties.Title == sheetName {
+			found = true
+			break
+		}
+	}
+	if !found {
+		fmt.Println("There is no sheet with such name")
+		os.Exit(1)
+	}
+
+	readRange := sheetName + `!` + column1 + ":" + column2
+	batchUpdate := sheets.ClearValuesRequest{}
+	
+	_, err := srv.Spreadsheets.Values.Clear(id, readRange, &batchUpdate).Do()
+	if err != nil {
+			log.Fatalf("Unable to delete data from sheet: %v", err)
+	}
 }

@@ -1,40 +1,55 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package sheethandlers
 
 import (
 	"fmt"
+	"log"
+	spreadsheethandlers "sheets_manager/cmd/handlers/spreadsheets"
+	"sheets_manager/setup/config"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
 
-// getSheetsCmd represents the getSheets command
 var getSheetsCmd = &cobra.Command{
-	Use:   "getSheet",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "get",
+	Short: "Get all your sheets from spreadsheet.",
+	Long: `Get all your sheets from spreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getSheets called")
+		GetAllSheets()
 	},
 }
 
 func init() {
 	SheetsCmd.AddCommand(getSheetsCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func GetAllSheets() {
+	srv := config.ApiConnect()
+	id := spreadsheethandlers.CheckId()
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// getSheetsCmd.PersistentFlags().String("foo", "", "A help for foo")
+	res, err := srv.Spreadsheets.Get(id).Do()
+    if err != nil {
+        log.Fatalf("Unable to get spreadsheet: %v", err)
+    }
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// getSheetsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+    sheets := res.Sheets
+
+    for _, sheet := range sheets {
+        fmt.Println(sheet.Properties.Title)
+    }
+
+}
+
+func GetSheets() []*sheets.Sheet{
+	srv := config.ApiConnect()
+	id := spreadsheethandlers.CheckId()
+
+	res, err := srv.Spreadsheets.Get(id).Do()
+    if err != nil {
+        log.Fatalf("Unable to get spreadsheet: %v", err)
+    }
+
+    sheets := res.Sheets
+
+    return sheets
 }

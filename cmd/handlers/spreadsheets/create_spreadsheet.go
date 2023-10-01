@@ -1,40 +1,61 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package spreadsheethandlers
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"sheets_manager/setup/config"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
 
-// createSpreadsheetCmd represents the createSpreadsheet command
 var createSpreadsheetCmd = &cobra.Command{
-	Use:   "createSpreadsheet",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "create",
+	Short: "Create new spreadsheet.",
+	Long: `Create new spreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("createSpreadsheet called")
+		CreateSpreadsheet()
 	},
 }
 
 func init() {
 	SpreadsheetsCmd.AddCommand(createSpreadsheetCmd)
+	createSpreadsheetCmd.Flags().StringVarP(&spreadsheetName, "name", "n", "", "name for spreadsheet")
+	createSpreadsheetCmd.MarkFlagRequired("name")
+}
 
-	// Here you will define your flags and configuration settings.
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// createSpreadsheetCmd.PersistentFlags().String("foo", "", "A help for foo")
+func CreateSpreadsheet() {
+	srv := config.ApiConnect()
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// createSpreadsheetCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	spreadsheet := &sheets.Spreadsheet{
+		Properties: &sheets.SpreadsheetProperties{
+			Title: spreadsheetName,
+		},
+	}
+
+	res, err := srv.Spreadsheets.Create(spreadsheet).Do()
+	if err != nil {
+		log.Fatalf("Unable to create spreadsheet: %v", err)
+	}
+
+	err = os.WriteFile("id.txt", []byte(res.SpreadsheetId), 0644)
+	if err != nil {
+		log.Fatalf("Unable to write spreadsheet id to file: %v", err)
+	}
+
+	fmt.Printf("New sheet created with Title: %v\n", spreadsheetName)
+}
+
+
+func CheckId() string{
+	file, err := os.ReadFile("id.txt")
+	if err != nil {
+		log.Fatalf("Run `spreadsheets create` command to create spreadsheet")
+	}
+
+	fileDecrypt := string(file)
+
+	return fileDecrypt
 }

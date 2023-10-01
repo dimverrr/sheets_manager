@@ -1,27 +1,27 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package tables
 
 import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
-
-// tablesCmd represents the tables command
+var (
+	
+	sheetName string
+	value string
+	column string
+	decision string
+	row *sheets.ValueRange
+	column1 string
+	column2 string
+)
 var TablesCmd = &cobra.Command{
 	Use:   "tables",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "CRUD operations with your tables.",
+	Long: `CRUD operations with your tables.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("tables called")
+		fmt.Println("CRUD operations with your tables. Call `create`, `update`, `get` or `delete` command.")
 	},
 }
 

@@ -1,40 +1,85 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package tables
 
 import (
 	"fmt"
+	"log"
+	"os"
+	sheethandlers "sheets_manager/cmd/handlers/sheets"
+	spreadsheethandlers "sheets_manager/cmd/handlers/spreadsheets"
+	"sheets_manager/setup/config"
 
 	"github.com/spf13/cobra"
+	"google.golang.org/api/sheets/v4"
 )
 
-// tableCreateCmd represents the tableCreate command
 var tableCreateCmd = &cobra.Command{
-	Use:   "tableCreate",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "create",
+	Short: "Create table in your sheet.",
+	Long: `Create table in your sheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("tableCreate called")
+		CreateTable()
 	},
 }
 
 func init() {
 	TablesCmd.AddCommand(tableCreateCmd)
+	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	tableCreateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for entering values `Example : A1 `")
 
-	// Here you will define your flags and configuration settings.
+	tableCreateCmd.MarkFlagRequired("name")
+	tableCreateCmd.MarkFlagRequired("column")
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// tableCreateCmd.PersistentFlags().String("foo", "", "A help for foo")
+func CreateTable() {
+	srv := config.ApiConnect()
+	id := spreadsheethandlers.CheckId()
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// tableCreateCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	
+	sheetsArr := sheethandlers.GetSheets()
+	found := false
+
+	for _, sheet := range sheetsArr {
+		if sheet.Properties.Title == sheetName {
+			found = true
+			break
+		}
+	}
+	if !found {
+		fmt.Println("There is no sheet with such name")
+		os.Exit(1)
+	}
+
+	readRange := sheetName + `!` + column
+
+	resp, err := srv.Spreadsheets.Values.Get(id, readRange).Do()
+	if err != nil {
+			log.Fatalf("Unable to retrieve data from sheet: %v", err)
+	}
+
+	row = &sheets.ValueRange{
+		Values: [][]interface{}{},
+	}
+	if len(resp.Values) == 0 {
+		fmt.Println("Enter header of column")
+		fmt.Scan(&value)
+		row.Values = append(row.Values, []interface{}{value})
+	}
+
+
+	for {
+		fmt.Println("Enter new value or print `end` to write cells")
+		fmt.Scan(&value)
+
+		if value == "end" {
+			break
+		}else{
+			row.Values = append(row.Values, []interface{}{value})
+		}
+	}
+	
+	_, err = srv.Spreadsheets.Values.Append(id, readRange, row).ValueInputOption("RAW").Do()
+	if err != nil {
+			log.Fatalf("Unable to retrieve data from sheet: %v", err)
+	}
+
 }

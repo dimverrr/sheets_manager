@@ -1,7 +1,3 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
-*/
 package spreadsheethandlers
 
 import (
@@ -10,18 +6,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// spreadsheetsCmd represents the spreadsheets command
+var (
+	spreadsheetName string
+	SpreadsheetId string
+)
+
 var SpreadsheetsCmd = &cobra.Command{
 	Use:   "spreadsheets",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Crate operation for spreadsheets.",
+	Long: `Crate operation for spreadsheets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("spreadsheets called")
+		fmt.Println("Crate operation for spreadsheets. Call `create` command to create new spreadsheet")
 	},
 }
 
