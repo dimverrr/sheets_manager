@@ -1,4 +1,4 @@
-package sheets
+package sheethandlers
 
 import (
 	"fmt"
@@ -15,10 +15,8 @@ func GetAllSheets() {
         log.Fatalf("Unable to get spreadsheet: %v", err)
     }
 
-    // Get the list of sheets in the spreadsheet.
     sheets := res.Sheets
 
-    // Print the names of all sheets in the spreadsheet.
     for _, sheet := range sheets {
         fmt.Println(sheet.Properties.Title)
     }
@@ -33,9 +31,7 @@ func GetSheets() []*sheets.Sheet{
         log.Fatalf("Unable to get spreadsheet: %v", err)
     }
 
-    // Get the list of sheets in the spreadsheet.
     sheets := res.Sheets
 
-    // Print the names of all sheets in the spreadsheet.
     return sheets
 }

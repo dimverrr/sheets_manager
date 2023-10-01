@@ -1,4 +1,4 @@
-package sheets
+package sheethandlers
 
 import (
 	"fmt"
@@ -14,12 +14,12 @@ var newName string
 func RenameSheet() {
 	srv := config.ApiConnect()
 
-	sheetsArr1 := GetSheets()
+	sheetsArr := GetSheets()
 	fmt.Println("Enter sheet name you want to rename")
 	fmt.Scan(&sheetName)
 	found := false
 
-	for _, sheet := range sheetsArr1{
+	for _, sheet := range sheetsArr{
 		if sheet.Properties.Title == sheetName{
 			found = true
 			fmt.Println("Enter new name for sheet")
