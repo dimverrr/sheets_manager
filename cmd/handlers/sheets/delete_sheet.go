@@ -22,7 +22,7 @@ var deleteSheetsCmd = &cobra.Command{
 
 func init() {
 	SheetsCmd.AddCommand(deleteSheetsCmd)
-	deleteSheetsCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	deleteSheetsCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
 	deleteSheetsCmd.MarkFlagRequired("name")
 }
 

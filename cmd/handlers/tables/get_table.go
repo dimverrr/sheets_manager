@@ -23,7 +23,7 @@ var tableGetCmd = &cobra.Command{
 func init() {
 	TablesCmd.AddCommand(tableGetCmd)
 
-	tableGetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	tableGetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
 	tableGetCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for getting values `Example: A1 `")
 	tableGetCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for getting values `Example: E `")
 

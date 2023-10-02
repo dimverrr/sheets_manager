@@ -23,7 +23,7 @@ var renameSheetCmd = &cobra.Command{
 func init() {
 	SheetsCmd.AddCommand(renameSheetCmd)
 
-	renameSheetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	renameSheetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
 	renameSheetCmd.Flags().StringVarP(&newName, "newName", "w", "", "new name for sheet")
 	renameSheetCmd.MarkFlagRequired("name")
 	renameSheetCmd.MarkFlagRequired("newName")

@@ -23,7 +23,7 @@ var tableCreateCmd = &cobra.Command{
 
 func init() {
 	TablesCmd.AddCommand(tableCreateCmd)
-	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
 	tableCreateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for entering values `Example : A1 `")
 
 	tableCreateCmd.MarkFlagRequired("name")
@@ -82,4 +82,5 @@ func CreateTable() {
 			log.Fatalf("Unable to retrieve data from sheet: %v", err)
 	}
 
+	fmt.Println("Your table was updated successfully")
 }

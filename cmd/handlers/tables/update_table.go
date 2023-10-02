@@ -24,7 +24,7 @@ var tableUpdateCmd = &cobra.Command{
 func init() {
 	TablesCmd.AddCommand(tableUpdateCmd)
 
-	tableUpdateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name for sheet")
+	tableUpdateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
 	tableUpdateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for updating values `Example : A1 `")
 
 	tableUpdateCmd.MarkFlagRequired("name")
@@ -64,15 +64,15 @@ func UpdateTable() {
 			os.Exit(1)
 		}
 	}
-	
+
 	row = &sheets.ValueRange{
-		Values: [][]interface{}{{value}},
+		Values: [][]interface{}{},
 	}
 
 	for {
 		fmt.Println("Insert new value or print `end` to write cells")
 		fmt.Scan(&value)
-	
+
 
 		if value == "end" {
 			break
@@ -85,5 +85,7 @@ func UpdateTable() {
 	if err != nil {
 			log.Fatalf("Unable to update data in sheet: %v", err)
 	}
+	
+	fmt.Println("Your table was updated successfully")
 	
 }
