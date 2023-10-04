@@ -26,7 +26,7 @@ sheets_manager help
 sheets_manager spreadsheets set
 ```
 3. To find ID of your spreadsheet open it and copy like example ID on the screenshot
-![image](https://github.com/dimverrr/sheets_manager/assets/118119126/8554eff2-ac64-44cb-8a5d-d15eeb274729)
+![image](https://github.com/dimverrr/sheets_manager/assets/118119126/75e56527-6e57-4c42-b224-2cfaccad6902)
 
 
 ### Congratulations! The app is ready for use 
