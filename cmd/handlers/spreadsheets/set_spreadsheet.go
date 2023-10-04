@@ -13,8 +13,8 @@ import (
 
 var setSpreadsheetCmd = &cobra.Command{
 	Use:   "set",
-	Short: "Set spreadsheet id for create sheets and tables in it.",
-	Long: `Set spreadsheet id for create sheets and tables in it..`,
+	Short: "Set spreadsheet id for create sheets and tables in it. Run this command again to choose another spreadsheet.",
+	Long: `Set spreadsheet id for create sheets and tables in it. Run this command again to choose another spreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		SetSpreadsheet()
 	},
