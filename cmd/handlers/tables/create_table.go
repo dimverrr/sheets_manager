@@ -23,7 +23,7 @@ var tableCreateCmd = &cobra.Command{
 
 func init() {
 	TablesCmd.AddCommand(tableCreateCmd)
-	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
+	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
 	tableCreateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for entering values `Example : A1 `")
 
 	tableCreateCmd.MarkFlagRequired("name")
@@ -45,7 +45,7 @@ func CreateTable() {
 		}
 	}
 	if !found {
-		fmt.Println("There is no sheet with such name")
+		fmt.Println("There is no sheet with this name")
 		os.Exit(1)
 	}
 
@@ -53,14 +53,14 @@ func CreateTable() {
 
 	resp, err := srv.Spreadsheets.Values.Get(id, readRange).Do()
 	if err != nil {
-			log.Fatalf("Unable to retrieve data from sheet: %v", err)
+			log.Fatalf("Unable to retrieve data from the sheet: %v", err)
 	}
 
 	row = &sheets.ValueRange{
 		Values: [][]interface{}{},
 	}
 	if len(resp.Values) == 0 {
-		fmt.Println("Enter header of column")
+		fmt.Println("Enter header of the column")
 		fmt.Scan(&value)
 		row.Values = append(row.Values, []interface{}{value})
 	}

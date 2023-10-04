@@ -13,8 +13,8 @@ import (
 
 var renameSheetCmd = &cobra.Command{
 	Use:   "rename",
-	Short: "Rename your sheet fromspreadsheet.",
-	Long: `Rename your sheet fromspreadsheet.`,
+	Short: "Rename one of your sheets.",
+	Long: `Rename one of your sheets.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		RenameSheet()
 	},
@@ -62,7 +62,7 @@ func RenameSheet() {
 	}
 
 	if !found {
-		fmt.Println("There is no sheet with such name")
+		fmt.Println("There is no sheet with this name")
 		os.Exit(1)
 	}
 

@@ -24,7 +24,7 @@ var tableDeleteCmd = &cobra.Command{
 func init() {
 	TablesCmd.AddCommand(tableDeleteCmd)
 
-	tableDeleteCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
+	tableDeleteCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
 	tableDeleteCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for deleting values`Example: A1 `")
 	tableDeleteCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for deleting values`Example: E `")
 
@@ -46,7 +46,7 @@ func DeleteTable() {
 		}
 	}
 	if !found {
-		fmt.Println("There is no sheet with such name")
+		fmt.Println("There is no sheet with this name")
 		os.Exit(1)
 	}
 
@@ -55,7 +55,7 @@ func DeleteTable() {
 	
 	_, err := srv.Spreadsheets.Values.Clear(id, readRange, &batchUpdate).Do()
 	if err != nil {
-			log.Fatalf("Unable to delete data from sheet: %v", err)
+			log.Fatalf("Unable to delete data from the sheet: %v", err)
 	}
 
 	fmt.Println("Your table was deleted successfully")

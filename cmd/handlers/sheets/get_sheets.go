@@ -29,7 +29,7 @@ func GetAllSheets() {
 
 	res, err := srv.Spreadsheets.Get(id).Do()
     if err != nil {
-        log.Fatalf("Unable to get spreadsheet: %v", err)
+        log.Fatalf("Unable to get sheets: %v", err)
     }
 
     sheets := res.Sheets
@@ -46,7 +46,7 @@ func GetSheets() []*sheets.Sheet{
 
 	res, err := srv.Spreadsheets.Get(id).Do()
     if err != nil {
-        log.Fatalf("Unable to get spreadsheet: %v", err)
+        log.Fatalf("Unable to get sheets: %v", err)
     }
 
     sheets := res.Sheets

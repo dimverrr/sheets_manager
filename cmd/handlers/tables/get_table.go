@@ -23,7 +23,7 @@ var tableGetCmd = &cobra.Command{
 func init() {
 	TablesCmd.AddCommand(tableGetCmd)
 
-	tableGetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of sheet")
+	tableGetCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
 	tableGetCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for getting values `Example: A1 `")
 	tableGetCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for getting values `Example: E `")
 
@@ -45,7 +45,7 @@ func GetTable() {
 		}
 	}
 	if !found {
-		fmt.Println("There is no sheet with such name")
+		fmt.Println("There is no sheet with this name")
 		os.Exit(1)
 	}
 
@@ -53,11 +53,11 @@ func GetTable() {
 
 	resp, err := srv.Spreadsheets.Values.Get(id, readRange).Do()
 	if err != nil {
-			log.Fatalf("Unable to retrieve data from sheet: %v", err)
+			log.Fatalf("Unable to retrieve data from the sheet: %v", err)
 	}
 
 	if len(resp.Values) == 0 {
-		fmt.Println("No data found")
+		fmt.Println("No data for retrieving was found.")
 		os.Exit(1)
 	} else {
 		for _, row := range resp.Values{

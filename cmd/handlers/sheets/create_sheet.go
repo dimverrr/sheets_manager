@@ -42,9 +42,9 @@ func CreateSheet() {
 	}
 	resp, err := srv.Spreadsheets.BatchUpdate(id, &batchUpdate).Do()
 	if err != nil {
-		log.Fatalf("Unable to create new sheet: %v", err)
+		log.Fatal("Sheet with this name already exists")
 	}
 
-	fmt.Printf("New sheet created with Title: %v\n", resp.Replies[0].AddSheet.Properties.Title)
+	fmt.Printf("New sheet was created with Title: %v\n", resp.Replies[0].AddSheet.Properties.Title)
 
 }

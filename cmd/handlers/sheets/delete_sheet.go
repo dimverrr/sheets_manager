@@ -55,7 +55,7 @@ func DeleteSheet() {
 	}
 	
 	if !found {
-		fmt.Println("There is no sheet with such name")
+		fmt.Println("There is no sheet with this name")
 		os.Exit(1)
 	}
 
