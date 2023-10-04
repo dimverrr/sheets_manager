@@ -10,7 +10,7 @@ Sheets Manager allows you to create spreadsheets and proceed with CRUD operation
 
 3. Open the folder where you saved the repository.
    
-4. Run `
+4. Run 
 ```golang
 go install
 ```
