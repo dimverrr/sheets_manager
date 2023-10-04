@@ -25,7 +25,7 @@ func init() {
 	TablesCmd.AddCommand(tableUpdateCmd)
 
 	tableUpdateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
-	tableUpdateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for updating values `Example : A1 `")
+	tableUpdateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for updating values `Example: A1 `")
 
 	tableUpdateCmd.MarkFlagRequired("name")
 	tableUpdateCmd.MarkFlagRequired("column")

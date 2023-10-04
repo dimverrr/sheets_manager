@@ -22,7 +22,7 @@ var setSpreadsheetCmd = &cobra.Command{
 
 func init() {
 	SpreadsheetsCmd.AddCommand(setSpreadsheetCmd)
-	setSpreadsheetCmd.Flags().StringVarP(&spreadsheetId, "id", "i", "", "id of spreadsheet")
+	setSpreadsheetCmd.Flags().StringVarP(&spreadsheetId, "id", "i", "", "id of the spreadsheet")
 	setSpreadsheetCmd.MarkFlagRequired("i")
 }
 

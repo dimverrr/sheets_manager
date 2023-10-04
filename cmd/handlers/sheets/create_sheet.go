@@ -12,8 +12,8 @@ import (
 
 var createSheetCmd = &cobra.Command{
 	Use:   "create",
-	Short: "Create new sheet in your spreadsheet.",
-	Long: `Create new sheet in your spreadsheet.`,
+	Short: "Create a sheet in your spreadsheet.",
+	Long: `Create a sheet in your spreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		CreateSheet()
 	},

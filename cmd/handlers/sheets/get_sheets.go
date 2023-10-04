@@ -12,8 +12,8 @@ import (
 
 var getSheetsCmd = &cobra.Command{
 	Use:   "get",
-	Short: "Get all your sheets from spreadsheet.",
-	Long: `Get all your sheets from spreadsheet.`,
+	Short: "Get all your sheets from the spreadsheet.",
+	Long: `Get all your sheets from the spreadsheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		GetAllSheets()
 	},

@@ -14,8 +14,8 @@ import (
 
 var tableCreateCmd = &cobra.Command{
 	Use:   "create",
-	Short: "Create table in your sheet.",
-	Long: `Create table in your sheet.`,
+	Short: "Create a table in your sheet.",
+	Long: `Create a table in your sheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		CreateTable()
 	},
@@ -24,7 +24,7 @@ var tableCreateCmd = &cobra.Command{
 func init() {
 	TablesCmd.AddCommand(tableCreateCmd)
 	tableCreateCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
-	tableCreateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for entering values `Example : A1 `")
+	tableCreateCmd.Flags().StringVarP(&column, "column", "c", "", "column and cell for entering values `Example: A1 `")
 
 	tableCreateCmd.MarkFlagRequired("name")
 	tableCreateCmd.MarkFlagRequired("column")
@@ -67,7 +67,7 @@ func CreateTable() {
 
 
 	for {
-		fmt.Println("Enter new value or print `end` to write cells")
+		fmt.Println("Enter a new value or print `end` to write cells")
 		fmt.Scan(&value)
 
 		if value == "end" {

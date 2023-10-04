@@ -11,8 +11,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "sheets_manager",
-	Short: "Sheets_manager will help you to manage spreadsheets, sheets and tables in easy way",
-	Long: `Sheets_manager allows you to create, update, delete and show your spreadsheets/sheets/tables. Call "sheets_manager help" to see available commands`,
+	Short: "Sheets_manager will help you to manage spreadsheets, sheets and tables easily.",
+	Long: `Sheets_manager allows you to create, update, delete and show your spreadsheets/sheets/tables. Call "sheets_manager help" to see available commands.`,
 
 	Run: func(cmd *cobra.Command, args []string) { },
 }

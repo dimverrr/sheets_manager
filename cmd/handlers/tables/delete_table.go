@@ -25,8 +25,8 @@ func init() {
 	TablesCmd.AddCommand(tableDeleteCmd)
 
 	tableDeleteCmd.Flags().StringVarP(&sheetName, "name", "n", "", "name of the sheet")
-	tableDeleteCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for deleting values`Example: A1 `")
-	tableDeleteCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for deleting values`Example: E `")
+	tableDeleteCmd.Flags().StringVarP(&column1, "column1", "s", "", "start column and cell for deleting values `Example: A1 `")
+	tableDeleteCmd.Flags().StringVarP(&column2, "column2", "e", "", "end column for deleting values `Example: E `")
 
 	tableDeleteCmd.MarkFlagRequired("name")
 	tableCreateCmd.MarkFlagRequired("column1")

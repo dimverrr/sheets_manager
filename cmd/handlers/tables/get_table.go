@@ -13,8 +13,8 @@ import (
 
 var tableGetCmd = &cobra.Command{
 	Use:   "get",
-	Short: "Get table from your sheet.",
-	Long: `Get table from your sheet.`,
+	Short: "Get the table from your sheet.",
+	Long: `Get the table from your sheet.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		GetTable()
 	},
