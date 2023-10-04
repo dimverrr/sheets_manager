@@ -17,15 +17,30 @@ go install
 
 ## Usage 
 
+### First usage
+During the first run of any command authorization link will be shown in the console, you need to follow the following instructions:
+
+1. Open it 
+
+2. Follow all the instructions and accept all requests 
+
+3. Copy the code as it is shown on the screenshot
+
+![image](https://github.com/dimverrr/sheets_manager/assets/118119126/a115b535-ab61-4816-8e0c-f8f0cc9663a8)
+
+
+4. Paste it to the console and press the Enter button
+
+### Common usage
 1. Run the command to see all available commands
 ```golang
 sheets_manager help
 ```
-2. Run command to set ID of your spreadsheet
+2. Run the command to set the ID of your spreadsheet
 ```golang
 sheets_manager spreadsheets set
 ```
-3. To find ID of your spreadsheet open it and copy like example ID on the screenshot
+3. To find the ID of your spreadsheet open it and copy as example ID on the screenshot
 ![image](https://github.com/dimverrr/sheets_manager/assets/118119126/75e56527-6e57-4c42-b224-2cfaccad6902)
 
 
