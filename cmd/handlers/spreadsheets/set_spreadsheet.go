@@ -45,7 +45,7 @@ func SetSpreadsheet() {
 func CheckId() string{
 	file, err := os.ReadFile("id.txt")
 	if err != nil {
-		log.Fatalf("Run `spreadsheets set` command to set spreadsheet")
+		log.Fatalf("Run `spreadsheets set` command to set spreadsheet ID")
 	}
 
 	fileDecrypt := string(file)
