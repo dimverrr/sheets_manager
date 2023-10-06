@@ -40,7 +40,7 @@ sheets_manager help
 ```golang
 sheets_manager spreadsheets set
 ```
-3. To find the ID of your spreadsheet open it and copy as example ID on the screenshot
+3. To find the ID of your spreadsheet create it in Google Drive, open it and copy ID from URL as example ID on the screenshot
 ![image](https://github.com/dimverrr/sheets_manager/assets/118119126/75e56527-6e57-4c42-b224-2cfaccad6902)
 
 
